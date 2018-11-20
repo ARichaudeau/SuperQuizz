@@ -9,4 +9,7 @@
     <string name="title_activity_question">QuestionActivity</string>
     <string name="title_activity_false_response">FalseResponseActivity</string>
     <string name="title_activity_true_response">TrueResponseActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -20,6 +20,7 @@ public class QuestionActivity extends AppCompatActivity {
     private String reponse;
     static ArrayList<Question> questionList = new ArrayList<Question>();
     Question q;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +32,17 @@ public class QuestionActivity extends AppCompatActivity {
         btn3 = findViewById(R.id.button_digit_response_3);
         btn4 = findViewById(R.id.button_digit_response_4);
 
-        q = new Question("Quelle est la capitale de la France ?");
-        textViewScreen.setText(q.getIntitule());
+    //   q = new Question("Quelle est la capitale de la France ?");
+    //    textViewScreen.setText(q.getIntitule());
 
-        q.addProposition("Londres");
+       /* q.addProposition("Londres");
         q.addProposition("Paris");
         q.addProposition("Madrid");
         q.addProposition("Athènes");
-        questionList.add(q);
+        questionList.add(q);*/
+
+        q = getIntent().getParcelableExtra("Question");
+        textViewScreen.setText(q.getIntitule());
         btn1.setText(q.getPropositions().get(0));
         btn2.setText(q.getPropositions().get(1));
         btn3.setText(q.getPropositions().get(2));
@@ -46,6 +50,9 @@ public class QuestionActivity extends AppCompatActivity {
         q.setBonneReponse("Paris");
     }
 
+    /*
+    Lancement de l'activité TrueResponseActivity ou FalseResponseActivity en fonction du bouton sélectionné
+     */
     public void onResponseClicked(View v){
         Button btn = (Button) v;
         reponse = btn.getText().toString();
