@@ -11,5 +11,12 @@
     <string name="title_activity_true_response">TrueResponseActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="fragment_settings">Hello fragment settings</string>
+    <string name="bad_response">Mauvaise réponse !</string>
+    <string name="true_response">Bonne réponse !</string>
+    <string name="play">Play</string>
+    <string name="score">Score actuel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

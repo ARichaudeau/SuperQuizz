@@ -11,13 +11,14 @@ public class Question implements Parcelable {
     private String bonneReponse;
 
     public Question(){
-
+        this.propositions = new ArrayList<>();
     }
 
     public Question(String intitule) {
         super();
         this.intitule = intitule;
         this.propositions = new ArrayList<>();
+
     }
 
     protected Question(Parcel in) {

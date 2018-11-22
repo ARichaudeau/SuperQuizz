@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.formation10.superquizz.database.QuestionsDatabaseHelper;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -27,7 +30,6 @@ public class QuestionListFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    static ArrayList<Question> questionList = new ArrayList<Question>();
     Question q;
 
     /**
@@ -61,12 +63,7 @@ public class QuestionListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Faire liste de questions ici
-        q = new Question("Quelle est la capitale de la France ?");
-        q.addProposition("Londres");
-        q.addProposition("Paris");
-        q.addProposition("Madrid");
-        q.addProposition("Athènes");
-        questionList.add(q);
+        List<Question> questionList = QuestionsDatabaseHelper.getInstance(getContext()).getAllQuestions();
 
 
         View view = inflater.inflate(R.layout.fragment_question_list, container, false);

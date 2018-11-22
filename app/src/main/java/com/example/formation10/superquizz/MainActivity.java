@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.formation10.superquizz.database.QuestionsDatabaseHelper;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, QuestionListFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, QuestionListFragment.OnListFragmentInteractionListener, CreationFragment.CreationFragmentListener {
 
 
     @Override
@@ -117,6 +119,15 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.fragment_container, fragment)
                     .commit();
 
+        } else if (id == R.id.nav_add_question) {
+            Bundle arguments = new Bundle();
+            CreationFragment fragment = new CreationFragment();
+            fragment.listener=this;
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -135,5 +146,16 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this,QuestionActivity.class);
         intent.putExtra("Question", item);
         this.startActivity(intent);
+    }
+
+    @Override
+    public void createQuestion(Question q) {
+        QuestionListFragment fragment = new QuestionListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+
+        QuestionsDatabaseHelper databaseHelper = QuestionsDatabaseHelper.getInstance(this);
+        databaseHelper.addQuestion(q);
     }
 }

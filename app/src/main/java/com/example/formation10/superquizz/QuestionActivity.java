@@ -47,7 +47,7 @@ public class QuestionActivity extends AppCompatActivity {
         btn2.setText(q.getPropositions().get(1));
         btn3.setText(q.getPropositions().get(2));
         btn4.setText(q.getPropositions().get(3));
-        q.setBonneReponse("Paris");
+        q.setBonneReponse(q.getBonneReponse());
     }
 
     /*
