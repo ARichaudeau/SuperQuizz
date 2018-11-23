@@ -15,10 +15,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.formation10.superquizz.api.APIClient;
 import com.example.formation10.superquizz.database.QuestionsDatabaseHelper;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.formation10.superquizz.QuestionActivity.questionList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, QuestionListFragment.OnListFragmentInteractionListener, CreationFragment.CreationFragmentListener {
+
 
 
     @Override
@@ -53,6 +63,20 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.fragment_container, fragment)
                     .commit();
         }
+
+        APIClient.getInstance().getQuestions(new APIClient.APIResult<List<Question>>() {
+            @Override
+            public void onFailure(IOException e) {
+
+            }
+
+            @Override
+            public void OnSuccess(List<Question> object) throws IOException {
+                for (Question question : object){
+                    QuestionsDatabaseHelper.getInstance(MainActivity.this).addQuestion(question);
+                }
+            }
+        });
     }
 
     @Override

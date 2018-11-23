@@ -1,7 +1,9 @@
 package com.example.formation10.superquizz;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +11,20 @@ import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity implements DelayTask.OnDelayTaskListener {
 
     private TextView textViewScreen;
     private Button btn1, btn2, btn3, btn4;
     private String reponse;
+    private ProgressBar pb;
     static ArrayList<Question> questionList = new ArrayList<Question>();
     Question q;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
         btn2 = findViewById(R.id.button_digit_response_2);
         btn3 = findViewById(R.id.button_digit_response_3);
         btn4 = findViewById(R.id.button_digit_response_4);
+
 
     //   q = new Question("Quelle est la capitale de la France ?");
     //    textViewScreen.setText(q.getIntitule());
@@ -48,6 +54,10 @@ public class QuestionActivity extends AppCompatActivity {
         btn3.setText(q.getPropositions().get(2));
         btn4.setText(q.getPropositions().get(3));
         q.setBonneReponse(q.getBonneReponse());
+
+        pb = findViewById(R.id.progressBar1);
+        DelayTask delayTask = new DelayTask(this);
+        delayTask.execute();
     }
 
     /*
@@ -63,6 +73,16 @@ public class QuestionActivity extends AppCompatActivity {
             Intent intent = new Intent(this,FalseResponseActivity.class);
             this.startActivity(intent);
         }
+    }
+
+    @Override
+    public void onWillStart() {
+        pb.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    public void onProgress(int progress) {
+        pb.setProgress(progress);
     }
 
 }

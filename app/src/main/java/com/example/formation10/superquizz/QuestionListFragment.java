@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.example.formation10.superquizz.database.QuestionsDatabaseHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

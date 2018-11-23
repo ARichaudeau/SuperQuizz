@@ -48,4 +48,13 @@
         android:background="@color/colorGreen"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_margin="10dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_margin="10dp"
+        android:max="100" />
 </LinearLayout>
