@@ -1,16 +1,20 @@
 package com.example.formation10.superquizz;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -69,6 +73,9 @@ public class CreationFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        registerReceiver();
+
     }
 
     @Override
@@ -87,6 +94,7 @@ public class CreationFragment extends Fragment {
         btn4 = view.findViewById(R.id.radioButton_4);
 
         btnOk= view.findViewById(R.id.button_ok);
+
         View.OnClickListener radioButtonListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,5 +170,45 @@ public class CreationFragment extends Fragment {
 
     public interface CreationFragmentListener{
         void createQuestion(Question q);
+    }
+
+    private void registerReceiver(){
+        try
+        {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(NetworkChangeReceiver.NETWORK_CHANGE_ACTION);
+            getActivity().registerReceiver(internalNetworkChangeReceiver, intentFilter);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        try
+        {
+            // Make sure to unregister internal receiver in onDestroy().
+            getActivity().unregisterReceiver(internalNetworkChangeReceiver);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * This is internal BroadcastReceiver which get status from external receiver(NetworkChangeReceiver)
+     * */
+    InternalNetworkChangeReceiver internalNetworkChangeReceiver = new InternalNetworkChangeReceiver();
+    class InternalNetworkChangeReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+        Log.d("CONNECTIVITY",intent.getStringExtra("status"));
+        Toast.makeText(getActivity(), "Pas de connexion ", Toast.LENGTH_LONG).show();
+        }
     }
 }

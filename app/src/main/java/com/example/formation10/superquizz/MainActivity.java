@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity
                     .commit();
         }
 
+        
+
         APIClient.getInstance().getQuestions(new APIClient.APIResult<List<Question>>() {
             @Override
             public void onFailure(IOException e) {

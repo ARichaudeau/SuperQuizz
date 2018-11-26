@@ -200,7 +200,11 @@ public class QuestionsDatabaseHelper extends SQLiteOpenHelper {
             }
 
             if (!found) {
-                //TODO DELETE database question from the database
+ /*               SQLiteDatabase db = getWritableDatabase();
+                db.beginTransaction();
+                ContentValues values = new ContentValues();
+                db.delete(TABLE_QCM, values, KEY_QUESTION_ID + " = ?",
+                        new String[]{String.valueOf(serverQuestion.getId())});)*/
             }
         }
 
