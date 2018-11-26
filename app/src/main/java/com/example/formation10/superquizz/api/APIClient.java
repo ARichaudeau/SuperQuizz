@@ -40,6 +40,7 @@ public class APIClient {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+
                 result.onFailure(e);
             }
 
@@ -53,6 +54,7 @@ public class APIClient {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject json = jsonArray.getJSONObject(i);
                         Question question = new Question();
+                        question.setId(json.getInt("id"));
                         question.setIntitule(json.getString("title"));
                         question.addProposition(json.getString("answer_1"));
                         question.addProposition(json.getString("answer_2"));

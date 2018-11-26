@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class Question implements Parcelable {
+    private Integer id;
     private String intitule;
     private ArrayList<String> propositions;
     private String bonneReponse;
@@ -20,6 +21,7 @@ public class Question implements Parcelable {
         this.propositions = new ArrayList<>();
 
     }
+
 
     protected Question(Parcel in) {
         intitule = in.readString();
@@ -70,6 +72,12 @@ public class Question implements Parcelable {
     public void setBonneReponse(String bonneReponse) {
         this.bonneReponse = bonneReponse;
     }
+
+    public Integer getId() {
+        return id;}
+
+    public void setId(Integer id) {
+        this.id = id;}
 
     @Override
     public int describeContents() {

@@ -91,6 +91,7 @@ public class QuestionsDatabaseHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
+            values.put(KEY_QUESTION_ID, question.getId());
             values.put(KEY_INTITULE, question.getIntitule());
             values.put(KEY_PROPOSITION_1, question.getPropositions().get(0));
             values.put(KEY_PROPOSITION_2, question.getPropositions().get(1));
@@ -123,6 +124,7 @@ public class QuestionsDatabaseHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     Question newQuestion = new Question();
+                    newQuestion.setId(cursor.getInt(cursor.getColumnIndex(KEY_QUESTION_ID)));
                     newQuestion.setIntitule(cursor.getString(cursor.getColumnIndex(KEY_INTITULE)));
                     newQuestion.addProposition(cursor.getString(cursor.getColumnIndex(KEY_PROPOSITION_1)));
                     newQuestion.addProposition(cursor.getString(cursor.getColumnIndex(KEY_PROPOSITION_2)));
@@ -143,5 +145,65 @@ public class QuestionsDatabaseHelper extends SQLiteOpenHelper {
         return questions;
     }
 
+
+    public void synchroniseDatabaseQuestions(List<Question> serverQuestions) {
+
+
+        List<Question> databaseQuestions = getAllQuestions();
+
+
+        // Here we will choose if we need to add or to update the question return by the server
+        for (Question serverQuestion : serverQuestions) {
+            boolean found = false;
+            for (Question dataBaseQuestion : databaseQuestions) {
+                if (serverQuestion.getId() == dataBaseQuestion.getId()) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                SQLiteDatabase db = getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(KEY_INTITULE, serverQuestion.getIntitule());
+                values.put(KEY_PROPOSITION_1,serverQuestion.getPropositions().get(0));
+                values.put(KEY_PROPOSITION_2, serverQuestion.getPropositions().get(1));
+                values.put(KEY_PROPOSITION_3, serverQuestion.getPropositions().get(2));
+                values.put(KEY_PROPOSITION_4, serverQuestion.getPropositions().get(3));
+                values.put(KEY_BONNE_REPONSE, serverQuestion.getBonneReponse());
+                db.update(TABLE_QCM, values, KEY_QUESTION_ID + " = ?",
+                    new String[]{String.valueOf(serverQuestion.getId())});
+
+            } else {
+                SQLiteDatabase db = getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(KEY_QUESTION_ID, serverQuestion.getId());
+                values.put(KEY_INTITULE, serverQuestion.getIntitule());
+                values.put(KEY_PROPOSITION_1, serverQuestion.getPropositions().get(0));
+                values.put(KEY_PROPOSITION_2, serverQuestion.getPropositions().get(1));
+                values.put(KEY_PROPOSITION_3, serverQuestion.getPropositions().get(2));
+                values.put(KEY_PROPOSITION_4, serverQuestion.getPropositions().get(3));
+                values.put(KEY_BONNE_REPONSE, serverQuestion.getBonneReponse());
+
+                db.insert(TABLE_QCM, null, values);
+            }
+        }
+
+        // Now we want to delete the question if thy are not on the server anymore
+        for (Question dataBaseQuestion : databaseQuestions) {
+            boolean found = false;
+            for (Question serverQuestion : serverQuestions) {
+                if (serverQuestion.getId() == dataBaseQuestion.getId()) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                //TODO DELETE database question from the database
+            }
+        }
+
+    }
 
 }
