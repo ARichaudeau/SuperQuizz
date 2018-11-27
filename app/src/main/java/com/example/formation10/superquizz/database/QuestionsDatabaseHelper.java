@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.formation10.superquizz.Question;
+import com.example.formation10.superquizz.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;

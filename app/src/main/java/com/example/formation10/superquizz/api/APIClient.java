@@ -1,8 +1,7 @@
 package com.example.formation10.superquizz.api;
 
-import android.util.Log;
 
-import com.example.formation10.superquizz.Question;
+import com.example.formation10.superquizz.model.Question;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +19,8 @@ import okhttp3.Response;
 
 public class APIClient {
 
+    private final String baseUrl = "http://192.168.10.38:3000";
+
     private final OkHttpClient client = new OkHttpClient();
 
     private static APIClient sInstance;
@@ -31,10 +32,12 @@ public class APIClient {
         return sInstance;
     }
 
+
+
     public void getQuestions(final APIResult<List<Question>> result) {
 
         Request request = new Request.Builder()
-                .url("http://192.168.10.38:3000/questions")
+                .url(baseUrl +"/questions")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {

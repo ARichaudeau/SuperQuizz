@@ -1,10 +1,11 @@
-package com.example.formation10.superquizz;
+package com.example.formation10.superquizz.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {
 
@@ -36,6 +37,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     {
         try
         {
+            Log.e("BROADCAST_RECEIVE", ""  + isOnline(context));
             Intent intent = new Intent();
             intent.putExtra("status", status);
             intent.setAction(NETWORK_CHANGE_ACTION);

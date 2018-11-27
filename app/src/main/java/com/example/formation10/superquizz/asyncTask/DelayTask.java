@@ -1,8 +1,7 @@
-package com.example.formation10.superquizz;
+package com.example.formation10.superquizz.asyncTask;
 
 import android.os.AsyncTask;
 import android.os.SystemClock;
-import android.widget.ProgressBar;
 
 public class DelayTask extends AsyncTask<Void, Integer, String> {
     int count = 0;

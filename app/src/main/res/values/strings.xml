@@ -16,6 +16,9 @@
     <string name="true_response">Bonne réponse !</string>
     <string name="play">Play</string>
     <string name="score">Score actuel</string>
+    <string name="intitule_question">Saisir la question :</string>
+    <string name="propositions">Saisir les propositions et cocher la bonne réponse :</string>
+    <string name="save_answer">Save Answer"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

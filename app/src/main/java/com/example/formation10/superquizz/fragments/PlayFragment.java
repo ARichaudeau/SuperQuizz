@@ -1,6 +1,6 @@
-package com.example.formation10.superquizz;
+package com.example.formation10.superquizz.fragments;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,16 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.formation10.superquizz.R;
+import com.example.formation10.superquizz.activities.QuestionActivity;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ScoreFragment.OnFragmentInteractionListener} interface
+ * {@link PlayFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ScoreFragment#newInstance} factory method to
+ * Use the {@link PlayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ScoreFragment extends Fragment {
+public class PlayFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,9 +32,11 @@ public class ScoreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ScoreFragment() {
+    public PlayFragment() {
         // Required empty public constructor
     }
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -39,11 +44,11 @@ public class ScoreFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ScoreFragment.
+     * @return A new instance of fragment PlayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ScoreFragment newInstance(String param1, String param2) {
-        ScoreFragment fragment = new ScoreFragment();
+    public static PlayFragment newInstance(String param1, String param2) {
+        PlayFragment fragment = new PlayFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,10 +68,19 @@ public class ScoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_score, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_play, container, false);
+           rootView.findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
+               /*
+Lancement de l'activité QuestionActivity lorsqu'on clique sur le bouton Play
+ */
+               @Override
+               public void onClick(View v) {
+                   Intent intent = new Intent(getContext(),QuestionActivity.class);
+                   startActivity(intent);
+               }
+           });
+        return rootView;
     }
-
 
 
     @Override

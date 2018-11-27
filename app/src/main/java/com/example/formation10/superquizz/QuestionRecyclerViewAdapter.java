@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.formation10.superquizz.QuestionListFragment.OnListFragmentInteractionListener;
+import com.example.formation10.superquizz.fragments.QuestionListFragment.OnListFragmentInteractionListener;
+import com.example.formation10.superquizz.model.Question;
 
 
 import java.util.List;

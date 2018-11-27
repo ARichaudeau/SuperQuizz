@@ -4,17 +4,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".CreationFragment">
+    tools:context=".fragments.CreationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
    <LinearLayout
        android:layout_width="fill_parent"
-       android:layout_height="wrap_content">
-       android:orientation="horizontal"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Saisir l'intitulé de la question :"
+           android:text="@string/intitule_question"
            />
        <EditText
            android:id="@+id/editText_intitule"
@@ -24,12 +23,12 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saisir les propositions et cocher la bonne réponse :"
+            android:text="@string/propositions"
             />
 
     </LinearLayout>

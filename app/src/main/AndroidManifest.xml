@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NetworkChangeReceiver" >
+        <receiver android:name=".broadcast.NetworkChangeReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.STATE_CHANGE" />
@@ -29,15 +29,15 @@
         </receiver>
 
         <activity
-            android:name=".QuestionActivity"
+            android:name=".activities.QuestionActivity"
             android:label="@string/title_activity_question"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FalseResponseActivity"
+            android:name=".activities.FalseResponseActivity"
             android:label="@string/title_activity_false_response"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TrueResponseActivity"
+            android:name=".activities.TrueResponseActivity"
             android:label="@string/title_activity_true_response"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

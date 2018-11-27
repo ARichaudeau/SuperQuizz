@@ -1,24 +1,28 @@
-package com.example.formation10.superquizz;
+package com.example.formation10.superquizz.fragments;
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+
+import com.example.formation10.superquizz.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PlayFragment.OnFragmentInteractionListener} interface
+ * {@link SettingsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PlayFragment#newInstance} factory method to
+ * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayFragment extends Fragment {
+public class SettingsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,11 +34,9 @@ public class PlayFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PlayFragment() {
+    public SettingsFragment() {
         // Required empty public constructor
     }
-
-
 
     /**
      * Use this factory method to create a new instance of
@@ -42,11 +44,11 @@ public class PlayFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayFragment.
+     * @return A new instance of fragment SettingsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlayFragment newInstance(String param1, String param2) {
-        PlayFragment fragment = new PlayFragment();
+    public static SettingsFragment newInstance(String param1, String param2) {
+        SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,18 +68,33 @@ public class PlayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_play, container, false);
-           rootView.findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
-               /*
-Lancement de l'activité QuestionActivity lorsqu'on clique sur le bouton Play
- */
-               @Override
-               public void onClick(View v) {
-                   Intent intent = new Intent(getContext(),QuestionActivity.class);
-                   startActivity(intent);
-               }
-           });
+
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        final SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        CheckBox cb = rootView.findViewById(R.id.checkbox_save);
+        cb.setChecked(mSettings.getBoolean("Save Answer", false));
+
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = mSettings.edit();
+                editor.putBoolean("Save Answer",isChecked);
+                editor.apply();
+
+            }
+        });
+
+        // Inflate the layout for this fragment
         return rootView;
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
 

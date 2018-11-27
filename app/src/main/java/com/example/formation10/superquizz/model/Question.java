@@ -1,4 +1,4 @@
-package com.example.formation10.superquizz;
+package com.example.formation10.superquizz.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
